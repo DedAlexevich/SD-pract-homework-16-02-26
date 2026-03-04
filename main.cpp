@@ -41,21 +41,25 @@ int main()
   size_t b = 5;
   size_t c = 6;
   size_t sai[]{a, b, c};
-  int* aa = new int[a]{1,2,3,4,5,6,7,108};
-  int* bb = new int[b]{25,31,36,40,58};
-  int* cc = new int[c]{1,2,52,54,67,68};
+  int aa[] {1,2,3,4,5,6,7,108};
+  int bb[] {25,31,36,40,58};
+  int cc[] {1,2,52,54,67,68};
   int* arr[]{aa, bb, cc};
 
   int* r = new int[a+b+c];
-  int* e = mergeN(arr, 3, sai, r);
+  int* e = nullptr;
+  try {
+    e = mergeN(arr, 3, sai, r);
+  } catch (...) {
+    delete[] r;
+    return 1;
+  }
 
   for (int* s = r; s < e; s++) {
     std::cout << *s << ' ';
   }
 
-  delete[] aa;
-  delete[] bb;
-  delete[] cc;
   delete[] r;
+  return 0;
 }
 
