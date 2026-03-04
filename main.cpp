@@ -9,26 +9,29 @@ T* mergeN(const T* const * a, size_t sa, const size_t* sai, T* c)
     totalSize += sai[i];
   }
 
-  for (size_t i = 0; i < totalSize; i++) {
-    size_t minInd = 0;
-    T min;
-    for (size_t j = 0; j < sa; ++j) {
-      if (inds[j] < sai[j]) {
-        minInd = j;
-        min = a[j][inds[j]];
-        break;
-      }
-    }
-    for (size_t j = 0; j < sa; j++) {
-      if (inds[j] < sai[j]) {
-        if (a[j][inds[j]] < min) {
-          min = a[j][inds[j]];
+  size_t i = 0;
+  try {
+    for (; i < totalSize; i++) {
+      size_t minInd = 0;
+      for (size_t j = 0; j < sa; j++) {
+        if (inds[j] < sai[j]) {
           minInd = j;
+          break;
         }
       }
+      for (size_t j = 0; j < sa; j++) {
+        if (inds[j] < sai[j]) {
+          if (a[j][inds[j]] < a[minInd][inds[minInd]]) { // пот искл
+            minInd = j;
+          }
+        }
+      }
+      c[i] = a[minInd][inds[minInd]]; // пот искл
+      inds[minInd]++;
     }
-    c[i] = a[minInd][inds[minInd]];
-    inds[minInd]++;
+  } catch (...) {
+    delete[] inds;
+    return c + i;
   }
 
   delete[] inds;
