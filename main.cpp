@@ -21,12 +21,12 @@ T* mergeN(const T* const * a, size_t sa, const size_t* sai, T* c)
       }
       for (size_t j = 0; j < sa; j++) {
         if (inds[j] < sai[j]) {
-          if (a[j][inds[j]] < a[minInd][inds[minInd]]) { // пот искл
+          if (a[j][inds[j]] < a[minInd][inds[minInd]]) {
             minInd = j;
           }
         }
       }
-      c[i] = a[minInd][inds[minInd]]; // пот искл
+      c[i] = a[minInd][inds[minInd]];
       inds[minInd]++;
     }
   } catch (...) {
